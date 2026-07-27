@@ -1,227 +1,1368 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>nithinana / projects</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    borderRadius: { 'xl': '1rem', '2xl': '1.5rem' }
-                }
-            }
-        }
-        if (localStorage.getItem('theme') === 'light') {
-            document.documentElement.classList.remove('dark');
-        } else {
-            document.documentElement.classList.add('dark');
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        :root {
-            --bg: #fafafa; --text: #18181b; --border: #e4e4e7; --accent: #71717a;
-            --grid-color: rgba(24, 24, 27, 0.04);
-            --logo-url: url('https://thirai.uk/static/thiraiblack.png');
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>nithinana</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
-        .dark {
-            --bg: #18181b; --text: #f4f4f5; --border: #27272a; --accent: #a1a1aa;
-            --grid-color: rgba(255, 255, 255, 0.02);
-            --logo-url: url('https://thirai.uk/static/thiraiwhite.png');
-        }
+    :root {
+      --wall-a: #eef1f7;
+      --wall-b: #e4e9f2;
+      --blob1: #e4e9f2;
+      --blob2: #d4dbec;
+      --blob3: #eef1f7;
+      --glass: rgba(255, 255, 255, 0.6);
+      --glass-brd: rgba(16, 24, 38, 0.06);
+      --text: #0f172a;
+      --muted: #475569;
+      --dim: #94a3b8;
+      --accent: #0f172a;
+      --cyan: #475569;
+      --panel: rgba(255, 255, 255, 0.6);
+      --line: rgba(15, 23, 42, 0.08);
+      --bar-bg: rgba(255, 255, 255, 0.6);
+      --shadow: 0 30px 60px -25px rgba(15, 23, 42, 0.15);
+      --lvl0: #e2e8f0;
+      --lvl1: #cbd5e1;
+      --lvl2: #94a3b8;
+      --lvl3: #475569;
+      --lvl4: #0f172a;
+    }
 
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text);
-            margin: 0;
-            overflow-x: hidden;
-            transition: background-color 0.4s ease, color 0.4s ease;
-        }
+    .dark {
+      --wall-a: #09090b;
+      --wall-b: #0f0f11;
+      --blob1: #18181b;
+      --blob2: #27272a;
+      --blob3: #18181b;
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-brd: rgba(255, 255, 255, 0.08);
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --dim: #71717a;
+      --accent: #ffffff;
+      --cyan: #a1a1aa;
+      --panel: rgba(18, 18, 20, 0.55);
+      --line: rgba(255, 255, 255, 0.08);
+      --bar-bg: rgba(12, 12, 14, 0.7);
+      --shadow: 0 30px 70px -25px rgba(0, 0, 0, 0.8);
+      --lvl0: #18181b;
+      --lvl1: #27272a;
+      --lvl2: #3f3f46;
+      --lvl3: #71717a;
+      --lvl4: #ffffff;
+    }
 
-        #grid-bg {
-            position: fixed;
-            top: -10%; left: -10%; width: 120%; height: 120%;
-            background-image: radial-gradient(var(--grid-color) 1px, transparent 1px);
-            background-size: 32px 32px;
-            z-index: -1;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        .repo-card, .nav-btn {
-            border: 1px solid var(--border);
-            background-color: var(--bg);
-            border-radius: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    html,
+    body {
+      height: 100%;
+    }
 
-        /* Bolder 2px border by default (unhighlighted) */
-        .pinned-card {
-            border: 2px solid var(--border);
-            background-color: var(--bg);
-            border-radius: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--wall-a);
+      overflow: hidden;
+      height: 100vh;
+      transition: background-color .4s ease, color .4s ease;
+    }
 
-        .nav-btn {
-            padding: 10px;
-            font-size: 13px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
+    .disp {
+      font-family: 'Outfit', sans-serif;
+    }
 
-        @media (min-width: 768px) {
-            .nav-btn { padding: 8px 16px; }
-        }
+    .mono {
+      font-family: 'IBM Plex Mono', monospace;
+    }
 
-        .nav-btn:hover {
-            border-color: var(--accent);
-            background-color: rgba(161, 161, 170, 0.1);
-            transform: translateY(-1px);
-        }
+    .hidden {
+      display: none !important;
+    }
 
-        .repo-card { opacity: 0; transform: translateY(10px); transition: all 0.3s ease; }
-        .repo-card.visible { opacity: 1; transform: translateY(0); }
+    /* ---------------- wallpaper ---------------- */
+    #wallpaper {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--wall-a), var(--wall-b));
+    }
 
-        .repo-card:hover {
-            border-color: var(--accent);
-            background-color: rgba(161, 161, 170, 0.05);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: .35;
+    }
 
-        .pinned-card:hover {
-            border-color: var(--accent); 
-            background-color: rgba(161, 161, 170, 0.05);
-            box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
+    .b1 {
+      width: 520px;
+      height: 520px;
+      background: var(--blob1);
+      top: -120px;
+      left: -100px;
+      animation: float1 22s ease-in-out infinite;
+    }
 
-        .thirai-logo {
-            background-image: var(--logo-url);
-            background-size: contain; background-repeat: no-repeat; background-position: center;
-            height: 32px; width: 120px;
-        }
-    </style>
+    .b2 {
+      width: 460px;
+      height: 460px;
+      background: var(--blob2);
+      bottom: -140px;
+      right: -80px;
+      animation: float2 26s ease-in-out infinite;
+    }
+
+    .b3 {
+      width: 380px;
+      height: 380px;
+      background: var(--blob3);
+      top: 30%;
+      right: 15%;
+      animation: float3 30s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(40px, 60px);
+      }
+    }
+
+    @keyframes float2 {
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(-50px, -30px);
+      }
+    }
+
+    @keyframes float3 {
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(-30px, 50px);
+      }
+    }
+
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      border: 1px solid var(--glass-brd);
+      background: transparent;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .2s ease;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .icon-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .brand-icon {
+      width: 15px;
+      height: 15px;
+      display: block;
+    }
+
+    .tag {
+      font-size: 10.5px;
+      letter-spacing: .03em;
+      color: var(--muted);
+      border: 1px solid var(--glass-brd);
+      border-radius: 999px;
+      padding: 3px 9px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .tag .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* ================= INTRO (fullscreen About) ================= */
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(160deg, var(--wall-a), var(--wall-b));
+      transition: opacity .35s ease, visibility .35s ease;
+    }
+
+    #intro.gone {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    #intro-card {
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+      padding: 40px 32px 32px;
+      background: var(--glass);
+      border: 1px solid var(--glass-brd);
+      border-radius: 26px;
+      backdrop-filter: blur(24px) saturate(160%);
+      box-shadow: var(--shadow);
+      perspective: 1400px;
+      transform-style: preserve-3d;
+      transition: transform .15s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #intro-card .glare {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .25s ease;
+      background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.25), transparent 45%);
+    }
+
+    #intro-card:hover .glare {
+      opacity: 1;
+    }
+
+    #intro-avatar {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 16px;
+      display: block;
+      border: 2px solid var(--glass-brd);
+      box-shadow: 0 8px 22px -8px rgba(0, 0, 0, .4);
+    }
+
+    #intro-avatar-fallback {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      color: #fff;
+      font-weight: 700;
+      font-size: 28px;
+    }
+
+    #intro-card h1 {
+      margin: 0 0 4px;
+      font-size: 23px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    #intro-card .handle {
+      display: block;
+      color: var(--muted);
+      font-size: 12.5px;
+      margin-bottom: 14px;
+    }
+
+    #intro-card .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    #intro-card p {
+      margin: 0 0 20px;
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    #intro-socials {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    #intro-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #1a0d05;
+      font-weight: 700;
+      border: none;
+      border-radius: 999px;
+      padding: 11px 22px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+      box-shadow: 0 12px 24px -10px rgba(224, 96, 42, .5);
+    }
+
+    #intro-cta:hover {
+      transform: translateY(-2px);
+    }
+
+    #intro-cta .chev {
+      transition: transform .2s ease;
+    }
+
+    /* ================= MAIN UI ================= */
+    #main-ui {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #topbar {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      background: var(--bar-bg);
+      backdrop-filter: blur(18px) saturate(150%);
+      cursor: pointer;
+    }
+
+    #topbar:hover {
+      background: var(--glass-brd);
+    }
+
+    #topbar img,
+    #topbar-fallback {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    #topbar-fallback {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    #topbar-text {
+      min-width: 0;
+    }
+
+    #topbar-text .n {
+      font-weight: 700;
+      font-size: 13.5px;
+    }
+
+    #topbar-text .t {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    #topbar-right {
+      margin-left: auto;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    #stage-wrap {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #stage {
+      position: absolute;
+      inset: 0;
+      overflow-y: auto;
+      padding: 20px 18px 24px;
+    }
+
+    #stage::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #stage::-webkit-scrollbar-thumb {
+      background: var(--glass-brd);
+      border-radius: 99px;
+    }
+
+    #stage-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .22s ease, transform .22s ease;
+    }
+
+    #stage-inner.leaving {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    #stage-inner.entering {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 20px;
+      backdrop-filter: blur(18px) saturate(150%);
+      margin-bottom: 14px;
+    }
+
+    .card h2 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .card .sub {
+      font-size: 11.5px;
+      color: var(--dim);
+      margin-bottom: 14px;
+    }
+
+    .kv {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 7px;
+      font-size: 12.5px;
+    }
+
+    .kv .k {
+      color: var(--muted);
+      min-width: 88px;
+      flex-shrink: 0;
+    }
+
+    .kv .v {
+      color: var(--text);
+    }
+
+    .section-h {
+      font-size: 10.5px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin: 16px 0 8px;
+    }
+
+    .section-h:first-child {
+      margin-top: 0;
+    }
+
+    /* ---- about stage ---- */
+    #about-bio {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .quicklinks {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* ---- terminal ---- */
+    #term-output {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12.5px;
+      line-height: 1.7;
+    }
+
+    .tline {
+      margin: 0 0 4px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .tline.out {
+      color: var(--muted);
+    }
+
+    .tline.hl {
+      color: var(--cyan);
+    }
+
+    .tline.ok {
+      color: #4ade80;
+    }
+
+    .tline.err {
+      color: var(--accent);
+    }
+
+    .tline.prompt .p {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    #term-input-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 6px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12.5px;
+    }
+
+    #term-input-row .p {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    #term-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12.5px;
+    }
+
+    #term-input::placeholder {
+      color: var(--dim);
+    }
+
+    /* ---- projects ---- */
+    .proj-item,
+    .repo-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 4px;
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--text);
+      transition: background .2s ease;
+    }
+
+    .proj-item:last-child,
+    .repo-item:last-child {
+      border-bottom: none;
+    }
+
+    .proj-item:hover,
+    .repo-item:hover {
+      background: var(--glass-brd);
+    }
+
+    .proj-item .name,
+    .repo-item .name {
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .proj-item .meta {
+      font-size: 11px;
+      color: var(--dim);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .repo-item .meta {
+      font-size: 11px;
+      color: var(--dim);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-family: 'IBM Plex Mono', monospace;
+      flex-shrink: 0;
+    }
+
+    .thirai-badge {
+      height: 26px;
+      padding: 0 10px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111111;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .thirai-badge img {
+      height: 13px;
+      width: auto;
+      display: block;
+    }
+
+    /* ---- contributions heatmap ---- */
+    #contrib-total {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    #contrib-scroll {
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    #contrib-months {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 11px;
+      gap: 3px;
+      margin-bottom: 4px;
+      margin-left: 16px;
+    }
+
+    #contrib-months span {
+      font-size: 9px;
+      color: var(--dim);
+      font-family: 'IBM Plex Mono', monospace;
+      white-space: nowrap;
+    }
+
+    .contrib-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    #contrib-daylabels {
+      display: grid;
+      grid-template-rows: repeat(7, 11px);
+      gap: 3px;
+      font-size: 8.5px;
+      color: var(--dim);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    #contrib-daylabels span {
+      display: flex;
+      align-items: center;
+    }
+
+    #contrib-grid {
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(7, 11px);
+      grid-auto-columns: 11px;
+      gap: 3px;
+    }
+
+    .contrib-cell {
+      width: 11px;
+      height: 11px;
+      border-radius: 2px;
+      background: var(--lvl0);
+    }
+
+    .contrib-cell.l1 {
+      background: var(--lvl1);
+    }
+
+    .contrib-cell.l2 {
+      background: var(--lvl2);
+    }
+
+    .contrib-cell.l3 {
+      background: var(--lvl3);
+    }
+
+    .contrib-cell.l4 {
+      background: var(--lvl4);
+    }
+
+    #contrib-legend {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 10px;
+      font-size: 10px;
+      color: var(--dim);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    #contrib-legend .contrib-cell {
+      width: 9px;
+      height: 9px;
+    }
+
+    /* ---- stack ---- */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .stack-chip {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .stack-chip .n {
+      font-weight: 700;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+    }
+
+    .stack-chip .r {
+      font-size: 10.5px;
+      color: var(--dim);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+      flex-wrap: wrap;
+    }
+
+    .flow span.step {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 9px;
+    }
+
+    .flow .arrow {
+      color: var(--dim);
+    }
+
+    /* ---- view-about custom topbar hiding ---- */
+    body.view-about #topbar {
+      display: none !important;
+    }
+
+    /* ---- custom project styles ---- */
+    .proj-item.thirai-large {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: var(--glass);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text);
+      transition: background .2s ease, transform .2s ease;
+      max-width: 360px;
+      margin: 0 auto 16px auto;
+    }
+
+    .proj-item.thirai-large:hover {
+      background: var(--glass-brd);
+      transform: translateY(-2px);
+    }
+
+    .mini-projects {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    .proj-mini {
+      flex: 1;
+      max-width: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: background .2s ease, transform .2s ease;
+    }
+
+    .proj-mini:hover {
+      background: rgba(224, 96, 42, 0.07);
+      transform: translateY(-1px);
+    }
+
+    .proj-mini .name {
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .proj-mini .meta {
+      font-size: 10.5px;
+      color: var(--dim);
+      margin-top: 2px;
+    }
+
+    /* ---- contact ---- */
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 4px;
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .contact-item:last-child {
+      border-bottom: none;
+    }
+
+    .contact-item .ic {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--glass-brd);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-item .ic .brand-icon {
+      width: 17px;
+      height: 17px;
+    }
+
+    .contact-item .k {
+      font-size: 11px;
+      color: var(--dim);
+    }
+
+    .contact-item .v {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .copy-btn {
+      margin-left: auto;
+      font-size: 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 4px 8px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .copy-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ================= DOCK (bottom tab bar) ================= */
+    #dock {
+      flex-shrink: 0;
+      display: flex;
+      border-top: 1px solid var(--line);
+      background: var(--bar-bg);
+      backdrop-filter: blur(20px) saturate(160%);
+    }
+
+    .dock-tab {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 9px 4px 10px;
+      border: none;
+      background: transparent;
+      color: var(--dim);
+      cursor: pointer;
+      position: relative;
+      transition: color .2s ease;
+    }
+
+    .dock-tab .lbl {
+      font-size: 9.5px;
+      letter-spacing: .03em;
+    }
+
+    .dock-tab::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: width .2s ease;
+    }
+
+    .dock-tab:hover {
+      color: var(--muted);
+    }
+
+    .dock-tab.active {
+      color: var(--accent);
+    }
+
+    .dock-tab.active::before {
+      width: 26px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
 </head>
+
 <body class="antialiased">
 
-    <div id="grid-bg"></div>
+  <div id="wallpaper">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
 
-<header class="max-w-5xl mx-auto px-6 pt-16 md:pt-24 pb-12 flex flex-col md:flex-row md:items-center justify-between gap-8">
-    <div class="flex flex-col items-center md:items-start text-center md:text-left">
-        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">nithinana</h1>
+  <!-- ================= MAIN UI ================= -->
+  <div id="main-ui">
+    <div id="topbar" onclick="setStage('about')" title="Back to About">
+      <img id="topbar-avatar"
+        src="https://media.licdn.com/dms/image/v2/D4E03AQHSnRiNQOlCsQ/profile-displayphoto-crop_800_800/B4EZ6KUcdpI0AQ-/0/1780437076272?e=1786579200&v=beta&t=ELd31e-FTF1O7E0Fcymy1K92kt2kekigruusU2HXtfQ"
+        alt="" referrerpolicy="no-referrer">
+      <div id="topbar-fallback">NA</div>
+      <div id="topbar-text">
+        <div class="n">Nithinan Arulganeshan</div>
+        <div class="t">@nithinana · London, UK</div>
+      </div>
+      <div id="topbar-right"></div>
     </div>
 
-    <div class="flex items-center justify-center gap-2 md:gap-3">
-        <a href="https://github.com/nithinana" target="_blank" class="nav-btn" title="GitHub">
-            <i data-lucide="github" class="w-4 h-4"></i>
-            <span class="hidden md:inline">github</span>
-        </a>
-        <a href="https://www.snapchat.com/add/nithinan_a" target="_blank" class="nav-btn" title="Snapchat">
-            <i data-lucide="ghost" class="w-4 h-4"></i>
-            <span class="hidden md:inline">snap</span>
-        </a>
-        <a href="mailto:nithinana2009@gmail.com" class="nav-btn" title="Email">
-            <i data-lucide="mail" class="w-4 h-4"></i>
-            <span class="hidden md:inline">mail</span>
-        </a>
-        <button onclick="toggleTheme()" class="nav-btn bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 border-none shadow-lg">
-            <i data-lucide="sun" class="hidden dark:block w-4 h-4"></i>
-            <i data-lucide="moon" class="block dark:hidden w-4 h-4"></i>
-        </button>
+    <div id="stage-wrap">
+      <div id="stage">
+        <div id="stage-inner"></div>
+      </div>
     </div>
-</header>
 
-    <section class="max-w-5xl mx-auto px-6 mb-12">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-            <a href="/frontendthirai" class="pinned-card p-10 md:p-12 block flex items-center justify-center min-h-[140px] group transition-all">
-                <div class="thirai-logo group-hover:scale-105 transition-all duration-500"></div>
-            </a>
-            <a href="/free" class="pinned-card p-10 md:p-12 block flex items-center justify-center min-h-[140px] group text-center">
-                <h2 class="text-lg font-semibold tracking-tight">free periods</h2>
-            </a>
-            <a href="/mathspec" class="pinned-card p-10 md:p-12 block flex items-center justify-center min-h-[140px] group text-center">
-                <h2 class="text-lg font-semibold tracking-tight">mathspec</h2>
-            </a>
-        </div>
-    </section>
+    <div id="dock">
+      <button class="dock-tab" data-app="cli" onclick="dockClick('cli')"><i data-lucide="terminal"
+          class="w-[18px] h-[18px]"></i><span class="lbl">Terminal</span></button>
+      <button class="dock-tab" data-app="projects" onclick="dockClick('projects')"><i data-lucide="folder"
+          class="w-[18px] h-[18px]"></i><span class="lbl">Projects</span></button>
+      <button class="dock-tab" data-app="stack" onclick="dockClick('stack')"><i data-lucide="layers"
+          class="w-[18px] h-[18px]"></i><span class="lbl">Stack</span></button>
+      <button class="dock-tab" data-app="contact" onclick="dockClick('contact')"><i data-lucide="square-user"
+          class="w-[18px] h-[18px]"></i><span class="lbl">Contact</span></button>
+    </div>
+  </div>
 
-    <main class="max-w-5xl mx-auto px-6 pb-24">
-        <div class="flex items-center gap-4 mb-10">
-            <h2 class="text-xs font-bold font-mono tracking-widest opacity-40">/root/repo</h2>
-            <span class="h-[1px] flex-grow bg-zinc-200 dark:bg-zinc-800"></span>
-        </div>
-        <div id="repo-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            <div class="p-4 text-zinc-500 text-sm animate-pulse">fetching projects...</div>
-        </div>
-    </main>
+  <script>
+    lucide.createIcons();
 
-    <script>
+    /* Theme features are locked to dark mode. */
+
+    /* ================= avatar fallback ================= */
+    function wireAvatarFallback(imgId, fallbackId) {
+      const img = document.getElementById(imgId);
+      if (!img) return;
+      img.addEventListener('error', () => {
+        img.style.display = 'none';
+        const fb = document.getElementById(fallbackId);
+        if (fb) fb.style.display = 'flex';
+      });
+    }
+    wireAvatarFallback('topbar-avatar', 'topbar-fallback');
+
+    // Initialization is performed at the end of the script to ensure all variables are defined.
+
+    /* ================= stage content templates ================= */
+    const templates = {
+      about: () => `
+    <div class="card" style="text-align: center; padding-top: 28px; padding-bottom: 24px;">
+      <img id="about-avatar" src="https://media.licdn.com/dms/image/v2/D4E03AQHSnRiNQOlCsQ/profile-displayphoto-crop_800_800/B4EZ6KUcdpI0AQ-/0/1780437076272?e=1786579200&v=beta&t=ELd31e-FTF1O7E0Fcymy1K92kt2kekigruusU2HXtfQ" alt="Nithinan Arulganeshan" referrerpolicy="no-referrer" style="width:96px; height:96px; border-radius:50%; object-fit:cover; margin:0 auto 14px; display:block; border:2px solid var(--glass-brd); box-shadow:0 8px 22px -8px rgba(0,0,0,.4);">
+      <div id="about-avatar-fallback" style="width:96px; height:96px; border-radius:50%; margin:0 auto 14px; display:none; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--accent),var(--cyan)); color:#fff; font-weight:700; font-size:26px;">NA</div>
+      <h1 class="disp" style="margin:0 0 4px; font-size:22px; font-weight:700; letter-spacing:-.01em;">Nithinan Arulganeshan</h1>
+      <span class="handle mono" style="display:block; color:var(--muted); font-size:12.5px; margin-bottom:14px;">@nithinana</span>
+      <div style="display:flex; justify-content:center; gap:6px; margin-bottom:20px; font-size:12.5px; color:var(--muted);">
+        <span class="tag"><span class="dot"></span>London, UK</span>
+      </div>
+      
+      <p id="about-bio" style="text-align: left;">doing a level chem, physics and maths rn. tryna get into electronic engineering. i like tech.</p>
+      <div class="kv"><span class="k">age</span><span class="v">17</span></div>
+      <div class="kv"><span class="k">location</span><span class="v">london</span></div>
+      <div class="kv"><span class="k">education</span><span class="v">lowk failing a levels but its okay</span></div>
+      <div class="kv"><span class="k">projects</span><span class="v">thirai.uk</span></div>
+      <div class="section-h" style="text-align: left; margin-top: 20px;">Quick links</div>
+      <div class="quicklinks">
+        <a class="icon-btn" href="https://github.com/nithinana" target="_blank" title="GitHub">
+          <svg class="brand-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.19 1.84 1.19 3.1 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.08.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+        </a>
+        <a class="icon-btn" href="https://www.linkedin.com/in/nithinan-arulganeshan-2954bb39b/" target="_blank" title="LinkedIn">
+          <svg class="brand-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
+        </a>
+        <a class="icon-btn" href="mailto:nithinana2009@gmail.com" title="Email"><i data-lucide="mail" class="w-4 h-4"></i></a>
+      </div>
+    </div>
+  `,
+      cli: () => `
+    <div class="card">
+      <h2 class="disp">Terminal</h2>
+      <div class="sub">type 'help' to get started</div>
+      <div id="term-output"></div>
+      <div id="term-input-row">
+        <span class="p">❯</span>
+        <input id="term-input" type="text" placeholder="type 'help'" autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+  `,
+      projects: () => `
+    <div class="card" style="text-align: center;">
+      <h2 class="disp" style="margin-bottom: 4px;">projects</h2>
+      <div class="sub" style="margin-bottom: 20px;">stuff ive worked on + github repos</div>
+      
+      <a class="proj-item thirai-large" href="https://thirai.uk" target="_blank">
+        <img src="https://thirai.uk/static/thiraiwhite.png" alt="Thirai" style="height: 20px; display: block;">
+      </a>
+      
+      <div class="mini-projects">
+        <a class="proj-mini" href="/free">
+          <span class="name">free periods</span>
+          <span class="meta">for friends</span>
+        </a>
+        <a class="proj-mini" href="/mathspec">
+          <span class="name">mathspec</span>
+          <span class="meta">organisation thing</span>
+        </a>
+      </div>
+    </div>
+    <div class="card">
+      <h2 class="disp" style="font-size:14px;">GitHub Activity</h2>
+      <div id="contrib-total">loading contributions...</div>
+      <div id="contrib-scroll">
+        <div id="contrib-months"></div>
+        <div class="contrib-row">
+          <div id="contrib-daylabels"><span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span></div>
+          <div id="contrib-grid"></div>
+        </div>
+      </div>
+      <div id="contrib-legend">
+        less
+        <span class="contrib-cell"></span><span class="contrib-cell l1"></span><span class="contrib-cell l2"></span><span class="contrib-cell l3"></span><span class="contrib-cell l4"></span>
+        more
+      </div>
+    </div>
+    <div class="card">
+      <div class="section-h" style="margin-top:0;">From GitHub</div>
+      <div id="repo-list"><div style="color:var(--muted); font-size:12px;">fetching repositories...</div></div>
+    </div>
+  `,
+      stack: () => `
+    <div class="card">
+      <h2 class="disp">my stack</h2>
+      <div class="sub">what i use</div>
+      <div class="stack-grid">
+        <div class="stack-chip"><span class="n">html</span><span class="r">frontend/markup</span></div>
+        <div class="stack-chip"><span class="n">python</span><span class="r">backend</span></div>
+        <div class="stack-chip"><span class="n">golang</span><span class="r">backend/api</span></div>
+        <div class="stack-chip"><span class="n">agents</span><span class="r">claude+gemini</span></div>
+      </div>
+      <div class="section-h">IDEs</div>
+      <div class="flow"><span class="step">VS Code</span><span class="step">Antigravity</span><span class="step">WebStorm</span></div>
+            <div class="section-h">hosting</div>
+      <div class="flow"><span class="step">Oracle Cloud</span><span class="step">Github Pages</span><span class="step">Render</span></div>
+    </div>
+  `,
+      contact: () => `
+    <div class="card">
+      <h2 class="disp">Contact</h2>
+      <div class="sub">how to reach me</div>
+      <a class="contact-item" href="mailto:nithinana2009@gmail.com">
+        <span class="ic"><i data-lucide="mail" class="w-4 h-4"></i></span>
+        <span><span class="k">Email</span><br><span class="v">nithinana2009@gmail.com</span></span>
+        <button class="copy-btn" onclick="event.preventDefault(); copyText('nithinana2009@gmail.com', this)">copy</button>
+      </a>
+      <a class="contact-item" href="https://github.com/nithinana" target="_blank">
+        <span class="ic"><svg class="brand-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.19 1.84 1.19 3.1 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.08.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg></span>
+        <span><span class="k">GitHub</span><br><span class="v">/nithinana</span></span>
+      </a>
+      <a class="contact-item" href="https://www.linkedin.com/in/nithinan-arulganeshan-2954bb39b/" target="_blank">
+        <span class="ic"><svg class="brand-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg></span>
+        <span><span class="k">LinkedIn</span><br><span class="v">nithinan-arulganeshan</span></span>
+      </a>
+      <a class="contact-item" href="https://www.snapchat.com/add/nithinan_a" target="_blank">
+        <span class="ic"><i data-lucide="ghost" class="w-4 h-4"></i></span>
+        <span><span class="k">Snapchat</span><br><span class="v">nithinan_a</span></span>
+      </a>
+    </div>
+  `,
+    };
+
+    /* ================= stage switching ================= */
+    let currentView = null;
+    const stageInner = document.getElementById('stage-inner');
+    const stageWrap = document.getElementById('stage');
+
+    function updateDockActive(view) {
+      document.querySelectorAll('.dock-tab').forEach(t => t.classList.toggle('active', t.dataset.app === view));
+    }
+
+    function setStage(view) {
+      if (!templates[view] || currentView === view) return;
+      stageInner.classList.add('leaving');
+      setTimeout(() => {
+        stageInner.innerHTML = templates[view]();
         lucide.createIcons();
+        stageWrap.scrollTop = 0;
+        stageInner.classList.remove('leaving');
+        stageInner.classList.add('entering');
+        requestAnimationFrame(() => requestAnimationFrame(() => stageInner.classList.remove('entering')));
+        currentView = view;
+        updateDockActive(view);
+        document.body.classList.toggle('view-about', view === 'about');
+        if (view === 'about') {
+          wireAvatarFallback('about-avatar', 'about-avatar-fallback');
+        }
+        if (view === 'cli') initTerminal();
+        if (view === 'projects') { fetchRepos(); fetchContributions(); }
+      }, 160);
+    }
 
-        function toggleTheme() {
-            const isDark = document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    function dockClick(view) {
+      if (currentView === view) { setStage('about'); return; }
+      setStage(view);
+    }
+
+    /* ================= terminal ================= */
+    const responses = {
+      whoami: `nithinan arulganeshan — 17, london, developer.`,
+      about: `i like working on web applications/design and js stuff here nd there`,
+      stack: `html · python · go
+ide: vs code, webstorm`,
+      education: `former a-level student
+-> electronic engineering hopefully`,
+      projects: `thirai         thirai.uk       [live]
+free periods   /free           [live]
+mathspec       /mathspec       [live]`,
+      thirai: `thirai — movie site/scraper thing i made.
+-> https://thirai.uk`,
+      contact: `email     nithinana2009@gmail.com
+linkedin  linkedin.com/in/nithinan-arulganeshan-2954bb39b
+github    github.com/nithinana
+snapchat  nithinan_a`,
+      apps: `cli · projects · stack · contact
+type 'open <app>' to jump there`,
+    };
+    const helpText = `available commands:
+  whoami · about · stack · education
+  projects · thirai · contact · repos
+  open <cli|projects|stack|contact>
+  apps · clear`;
+
+    let repoData = [];
+    function reposAsText() {
+      if (!repoData.length) return 'repositories still loading — try again in a second.';
+      return repoData.map(r => `${r.name.toLowerCase().padEnd(20)} ${(r.language || 'misc').toLowerCase().padEnd(10)} *${r.stargazers_count}`).join('\n');
+    }
+
+    function initTerminal() {
+      const termOutput = document.getElementById('term-output');
+      const termInput = document.getElementById('term-input');
+      const termHistory = []; let hIndex = -1;
+
+      function tPrint(text, cls = '') {
+        const p = document.createElement('p');
+        p.className = 'tline ' + cls;
+        p.textContent = text;
+        termOutput.appendChild(p);
+      }
+      function tPromptLine(cmd) {
+        const p = document.createElement('p');
+        p.className = 'tline prompt';
+        p.innerHTML = `<span class="p">❯</span> ${cmd}`;
+        termOutput.appendChild(p);
+      }
+
+      function runCmd(raw) {
+        const cmd = raw.trim().toLowerCase();
+        if (cmd === '') return;
+        tPromptLine(cmd);
+        termHistory.push(cmd); hIndex = termHistory.length;
+
+        if (cmd === 'clear') { termOutput.innerHTML = ''; return; }
+        if (cmd === 'help') { tPrint(helpText, 'out'); return; }
+        if (cmd === 'repos') { tPrint(reposAsText(), 'out'); return; }
+        if (cmd === 'sudo' || cmd.startsWith('sudo ')) { tPrint('nice one boss', 'err'); return; }
+        if (cmd === 'theme dark') { tPrint('already in dark mode.', 'ok'); return; }
+        if (cmd === 'theme light') { tPrint('it looked ugly in light mode so i removed it ngl.', 'err'); return; }
+        if (cmd.startsWith('open ')) {
+          const target = cmd.replace('open ', '').trim();
+          const validTargets = ['cli', 'projects', 'stack', 'contact', 'about'];
+          if (validTargets.includes(target)) { tPrint(`opening ${target}...`, 'hl'); setTimeout(() => setStage(target), 200); }
+          else tPrint(`no such app: ${target} — try 'apps'.`, 'err');
+          return;
+        }
+        if (responses[cmd]) { tPrint(responses[cmd], 'out'); return; }
+        tPrint(`command not found: ${cmd} — type 'help' for a list.`, 'err');
+      }
+
+      termInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { runCmd(termInput.value); termInput.value = ''; }
+        else if (e.key === 'ArrowUp') { if (hIndex > 0) { hIndex--; termInput.value = termHistory[hIndex]; e.preventDefault(); } }
+        else if (e.key === 'ArrowDown') {
+          if (hIndex < termHistory.length - 1) { hIndex++; termInput.value = termHistory[hIndex]; }
+          else { hIndex = termHistory.length; termInput.value = ''; }
+          e.preventDefault();
+        }
+      });
+
+      tPrint('cheeky lil terminal js so it looks geek', 'hl');
+      tPrint("type 'help' or 'apps' to do sum.", 'out');
+      termInput.focus();
+    }
+
+    /* ================= repos ================= */
+    const username = 'nithinana';
+    async function fetchRepos() {
+      const el = document.getElementById('repo-list');
+      if (!el) return;
+      try {
+        const res = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=12`);
+        const data = await res.json();
+        repoData = data.filter(r => !r.fork);
+        el.innerHTML = '';
+        if (!repoData.length) { el.innerHTML = `<div style="color:var(--muted); font-size:12px;">no public, non-fork repositories yet.</div>`; return; }
+        repoData.forEach(repo => {
+          const a = document.createElement('a');
+          a.href = repo.html_url; a.target = '_blank'; a.className = 'repo-item';
+          a.innerHTML = `<span class="name">${repo.name.toLowerCase()}</span>
+        <span class="meta"><span>${(repo.language || 'misc').toLowerCase()}</span><span style="color:var(--accent)">★ ${repo.stargazers_count}</span></span>`;
+          el.appendChild(a);
+        });
+      } catch (e) {
+        el.innerHTML = `<div style="color:var(--muted); font-size:12px;">unable to load repositories.</div>`;
+      }
+    }
+
+    /* ================= github contributions ================= */
+    async function fetchContributions() {
+      const totalEl = document.getElementById('contrib-total');
+      const gridEl = document.getElementById('contrib-grid');
+      const monthsEl = document.getElementById('contrib-months');
+      if (!totalEl) return;
+      try {
+        const res = await fetch('https://github-contributions-api.jogruber.de/v4/nithinana');
+        const data = await res.json();
+        const all = data.contributions || [];
+        all.sort((a, b) => new Date(a.date) - new Date(b.date));
+        const recent = all.slice(-371);
+        if (!recent.length) { totalEl.textContent = 'no contribution data available.'; return; }
+
+        const firstDay = new Date(recent[0].date + 'T00:00:00').getDay();
+        const cells = new Array(firstDay).fill(null).concat(recent);
+
+        gridEl.innerHTML = '';
+        let lastMonth = null;
+        const monthMarks = [];
+        cells.forEach((c, i) => {
+          const col = Math.floor(i / 7);
+          const div = document.createElement('div');
+          div.className = 'contrib-cell' + (c && c.level ? ' l' + c.level : '');
+          if (c) {
+            div.title = `${c.date}: ${c.count} contribution${c.count === 1 ? '' : 's'}`;
+            const m = c.date.slice(0, 7);
+            if (m !== lastMonth) { lastMonth = m; monthMarks.push(col); }
+          }
+          gridEl.appendChild(div);
+        });
+
+        const totalCols = Math.ceil(cells.length / 7);
+        monthsEl.innerHTML = '';
+        monthsEl.style.gridTemplateColumns = `repeat(${totalCols}, 11px)`;
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        for (let i = 0; i < totalCols; i++) {
+          const span = document.createElement('span');
+          const markIdx = monthMarks.indexOf(i);
+          if (markIdx !== -1) {
+            const dateStr = cells.find((c, ci) => Math.floor(ci / 7) === i && c)?.date;
+            if (dateStr) span.textContent = monthNames[parseInt(dateStr.slice(5, 7), 10) - 1];
+          }
+          span.style.gridColumn = (i + 1);
+          monthsEl.appendChild(span);
         }
 
-        const grid = document.getElementById('grid-bg');
-        if (window.matchMedia("(pointer: fine)").matches) {
-            document.addEventListener('mousemove', (e) => {
-                const x = (window.innerWidth / 2 - e.pageX) / 100;
-                const y = (window.innerHeight / 2 - e.pageY) / 100;
-                grid.style.transform = `translateX(${x}px) translateY(${y}px)`;
-            });
-        }
+        const sum = recent.reduce((s, c) => s + c.count, 0);
+        totalEl.textContent = `${sum.toLocaleString()} contributions in the last year`;
+      } catch (e) {
+        totalEl.textContent = 'unable to load contribution data.';
+      }
+    }
 
-        const username = 'nithinana';
-        const repoGrid = document.getElementById('repo-grid');
+    /* ================= copy button ================= */
+    function copyText(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        const old = btn.textContent; btn.textContent = 'copied';
+        setTimeout(() => btn.textContent = old, 1400);
+      }).catch(() => { });
+    }
 
-        async function fetchRepos() {
-            try {
-                const res = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=12`);
-                const data = await res.json();
-                repoGrid.innerHTML = '';
-
-                data.filter(r => !r.fork).forEach((repo, i) => {
-                    const card = document.createElement('a');
-                    card.href = repo.html_url;
-                    card.target = "_blank";
-                    card.className = "repo-card p-6 md:p-8 block group";
-                    card.innerHTML = `
-                        <div class="flex flex-col h-full">
-                            <div class="flex justify-between items-start mb-4">
-                                <h2 class="text-base font-bold group-hover:text-emerald-500 transition-colors line-clamp-1">${repo.name.toLowerCase()}</h2>
-                                <span class="text-[9px] px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 font-bold tracking-widest flex-shrink-0">${(repo.language || 'project').toLowerCase()}</span>
-                            </div>
-                            <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-6 flex-grow line-clamp-2">
-                                ${(repo.description || 'no description available.').toLowerCase()}
-                            </p>
-                            <div class="flex items-center justify-between pt-4 border-t border-zinc-100 dark:border-zinc-800">
-                                <span class="text-[10px] font-medium opacity-40">${new Date(repo.pushed_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short' }).toLowerCase()}</span>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-[10px] font-medium flex items-center gap-1 opacity-70">
-                                        <i data-lucide="star" class="w-3 h-3 text-amber-500 fill-amber-500"></i> ${repo.stargazers_count}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    repoGrid.appendChild(card);
-                    lucide.createIcons();
-                    setTimeout(() => card.classList.add('visible'), i * 60);
-                });
-            } catch (e) {
-                repoGrid.innerHTML = `<div class="p-4 text-zinc-500 font-medium">unable to load repositories.</div>`;
-            }
-        }
-        fetchRepos();
-    </script>
+    // Automatically load the about stage on startup
+    setStage('about');
+  </script>
 </body>
+
 </html>
